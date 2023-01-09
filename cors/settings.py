@@ -91,9 +91,9 @@ DATABASES = {
 
     'DELFOS': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '10.1.124.4:1521/edelfosp.ulagos.cl',
-        'USER': 'tipmontt',
-        'PASSWORD': 'p#montt_',
+        'NAME': '++++++',
+        'USER': '+++++',
+        'PASSWORD': '+++++',
     },
 }
 
@@ -162,7 +162,7 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 AUTH_LDAP_SERVER_URI = "ldap://34.229.160.31"
 
 AUTH_LDAP_BIND_DN = "cn=readadmin,dc=ulagos,dc=cl"
-AUTH_LDAP_BIND_PASSWORD = "adminread"
+AUTH_LDAP_BIND_PASSWORD = "++++"
 #AUTH_LDAP_USER_SEARCH = LDAPSearch(
 #    "ou=people,dc=ulagos,dc=cl", ldap.SCOPE_SUBTREE, "(uid=%(user)s)"
 #)
