@@ -1,0 +1,11 @@
+asgiref==3.5.2
+cx-Oracle==8.3.0
+Django==3.2.16
+django-auth-ldap==4.1.0
+django-crispy-forms==1.14.0
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+python-ldap @ file:///C:/Users/Ulagos/Desktop/django-tne/python_ldap-3.4.0-cp311-cp311-win_amd64.whl
+pytz==2022.6
+sqlparse==0.4.3
+tzdata==2022.7

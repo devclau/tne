@@ -1,0 +1,250 @@
+{% extends '../layout/base_template.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Formulario Datos Ulagos{% endblock title %}
+
+{%block titulo %} Top Navigation Example 3. {%endblock %}
+{%block titulo_principal %} Formulario Tne 2023 {%endblock %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script>
+
+$(document).ready(function() {
+  $("input[name='INSCRIPCION']").click(function(event){
+      var valor = $(event.target).val();
+      if(valor =="SI"){
+          
+          $("#semestre").show();
+          $("#vacio").hide();
+         
+      } else if (valor == "NO") { 
+          $('#id_INSCRIPCION_PERIODO').val('');
+          $("#semestre").hide();
+          $("#vacio").show();
+      } else { 
+          // Otra cosa
+      }
+  });
+});
+
+
+
+</script>
+
+<div class="card card-teal">
+    <div class="card-header">
+        <h3 class="card-title">Información Importante</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="callout callout-info">
+            <h5>La Tarjeta Nacional Estudiantil (TNE)</h5>
+            <p>Es un beneficio administrado por Junaeb que hace efectiva la
+                rebaja en el pago de la tarifa de la locomoción colectiva, en este caso estudiantes de:.</p>
+        </div>
+        <div class="callout callout-danger">
+
+            <p><span><i class="fa fa-chevron-right"></i> Curso Superior: Son aquellos estudiantes que han estudiado en
+                    años anteriores en la Educación Superior y cuentan con un pase escolar en buen estado y emitido
+                    desde el año 2015 en adelante.</span></p>
+            <p><i class="fa fa-chevron-right"></i> Nuevos: son aquellos estudiantes que hayan egresado de Enseñanza
+                Media o que nunca hayan obtenido un pase escolar en Educación Superior.</p>
+        </div>
+
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3 class="card-title">En este formulario Ud. deberá indicar si requiere:</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                <strong class="text-primary">REVALIDAR:</strong> Que es colocar en tu pase escolar el sello
+                correspondiente al año académico en curso. <strong class="text-primary">IMPORTANTE!!!:</strong> Para
+                REVALIDAR, debes contar con tu TNE en buen estado, si no la tienes debes
+                solicitar una nueva<strong class="text-primary"> REPOSICION</strong> y deberás hacer el trámite en
+                Junaeb o ChileAtiende. <strong class="text-success">OBTENER LA TNE POR PRIMERA VEZ: </strong>
+                Corresponde a aquella solicitud de pase escolar para los estudiantes que hayan egresado de Enseñanza
+                Media o que nunca hayan obtenido la TNE en Educación Superior.
+            </div>
+
+        </div>
+      
+    </div>
+
+</div>
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Formulario</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <form name="tne" id="tne" method="post" action="{% url 'guardar' %}"  onsubmit="return valida_envia()">{% csrf_token %}
+           <input type="hidden" value="{{fecha}}" name="FECHA_SOLICITUD"/>
+           <input type="hidden" value="{{request.session.PERS_COD}}" name="RUT"/>
+           <input type="hidden" value="{% now 'Y' %}" name="PERIODO_SOLICITUD"/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        
+                            <label>Seleccionar si desea realizar una Inscripción</label>
+                            {{form.INSCRIPCION}}
+                        
+                    </div>
+                </div>
+
+
+
+                <div id="semestre" class="col-sm-6" >
+
+                    <div class="form-group">
+
+                        
+                            <label> Por favor Seleccione uno o dos semestres </label>
+                            {{form.INSCRIPCION_PERIODO}}
+                        
+                    </div>
+                </div>
+
+                <div id="vacio" class="col-sm-6" >
+
+                    <div class="form-group">
+
+                        <div class="form-check form-check-inline" style="display: none;">
+                            <label>No seleccionado ningun semestre</label>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">IMPORTANTE</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            Sólo podrás acceder a la solicitud o revalidación del pase escolar o TNE, si cuentas
+                            con asignaturas inscritas, de acuerdo al calendario académico de la Universidad.
+                            Si tienes dudas sobre este proceso puedes dirigirte al módulo TNE en la Unidad Gestión Becas
+                            y
+                            Beneficios de tu Campus o sede.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-check">
+                        <div class="form-check-input-chex">
+                            <label>¿Requiere revalidar su TNE para este año?</label>
+                            {{form.TNE_REVALIDAR}}
+                        </div>
+                    </div>
+                </div>
+                <p><em>*Importante: Para revalidar tu TNE debes tener tu pase escolar en buen estado, incluso si es de
+                    año anteriores, siempre y cuando sea desde el año 2015 en adelante..</em></p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-check">
+                        <div class="form-check-input-chex">
+                            <label>¿Requieres solicitar por primera vez la TNE para este año?</label>
+                            {{form.TNE_NUEVO}}
+                        </div>
+                    </div>
+                </div>
+                <p><em>*Importante: Esta solicitud es sólo para aquellos estudiantes que hayan egresado de Enseñanza
+                    Media o que nunca hayan obtenido un pase escolar en Educación Superior.</em></p>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">INFORMACIÓN GENERAL: Otros trámites relacionados con TNE</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            <p>Puedes realizar una REPOSICIÓN cuando tu TNE está muy deteriorada, la pierdes o te la roban.
+Para esto, debes solicitar una reposición, que significa reimprimir la tarjeta y eliminar la anterior.
+También debes solicitar una reposición, si es que retomaste tus estudios y la tarjeta que tienes fue
+emitida antes del año 2015.</p>
+Este trámite se realiza en las oficinas de Junaeb o Chile Atiende, pero debes presentar los
+siguientes documentos:  <ul><li>1. FOTOCOPIA DE CÉDULA DE IDENTIDAD POR AMBOS LADOS</li>
+    <li>2. CERTIFICADO DE ALUMNO REGULAR (disponible de obtener de manera virtual a través del
+    portal I-delfos)</li>
+<li>3. REALIZAR DEPÓSITO POR VALOR DE $3.600 A LA CUENTA N°9000097 EN EL BANCO
+    ESTADO, SERVIESTADO O CAJA VECINA, NO SE ACEPTAN TRANSFERENCIAS.</li></ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn  btn-primary " value="Enviar Datos"/>
+                    
+                    <input  type="reset" class="btn  btn-danger" value="Cancelar">
+        </form>
+    </div>
+
+</div>
+<script>
+    function valida_envia() {
+        var opciones_radio = document.tne.INSCRIPCION;
+
+        valor_radio = document.getElementById("id_INSCRIPCION_0").value;
+        valor_select = document.getElementById("id_INSCRIPCION_PERIODO").value;
+
+        if (opciones_radio[0].checked == true) {
+            if (valor_radio == 'SI') {
+                if (valor_select == '') {
+                    alert("Debe Seleccionar Una de las opciones de  Semestre");
+                    return false;
+                }
+                else {
+                    document.tne.submit();
+                }
+            } else {
+                return false;
+
+            }
+        } else {
+            document.tne.submit();
+        }
+    }
+</script>
+{% endblock%}

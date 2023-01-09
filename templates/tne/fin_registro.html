@@ -1,0 +1,12 @@
+{% extends '../layout/base_template.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Formulario Datos Ulagos{% endblock title %}
+
+{%block titulo %} Datos Gurdados con Exito {%endblock %}
+{%block titulo_principal %} Formulario Tne 2023 {%endblock %}
+
+{% block content %}
+
+<p><strong>Datos Guardados: </strong> </p> <small><h6> Muchas gracias por facilitar esta información, sus datos fueron enviados y gurdados con éxito. Para <strong>salir</strong> precione en le siguiente <a href="{% url 'logout' %}">[enlace]</a></h6> </small>
+{% endblock%}
