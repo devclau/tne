@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'cors.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.cors',
+        'NAME': BASE_DIR / '++++++',
     },
 
     'DELFOS': {
@@ -159,7 +159,7 @@ from django_auth_ldap.config import LDAPSearch, GroupOfNamesType, PosixGroupType
 
 
 # Baseline configuration.
-AUTH_LDAP_SERVER_URI = "ldap://34.229.160.31"
+AUTH_LDAP_SERVER_URI = "ldap://+++++++"
 
 AUTH_LDAP_BIND_DN = "cn=readadmin,dc=ulagos,dc=cl"
 AUTH_LDAP_BIND_PASSWORD = "++++"
