@@ -32,6 +32,37 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+
+    $(document).ready(function() {
+        $("#cls_revalidar").hide();
+        $("#cls_nuevo").hide();
+      $("input[name='TNE_SOLICITUD']").click(function(event){
+          var dato = $(event.target).val();
+          console.log(dato);
+          if (dato == null || dato == 'NO_REQUIERO'){
+            $("#cls_revalidar").hide();
+            $("#cls_nuevo").hide();
+          }
+          
+          else if(dato =="REVALIDAR"){
+              
+              $("#cls_revalidar").show();
+              $("#cls_nuevo").hide();
+             
+          } else if (dato == "NUEVA") { 
+              $("#cls_revalidar").hide();
+              $("#cls_nuevo").show();
+          } else { 
+              // Otra cosa
+          }
+      });
+    });
+    
+    
+    
+    </script>
+
 
 
 <div class="card card-teal">
@@ -171,11 +202,15 @@ $(document).ready(function() {
                         </div>
                     </div>
                 </div>
-                <p><em>*Importante: Para revalidar tu TNE debes tener tu pase escolar en buen estado, incluso si es de
+                <div id="cls_revalidar">
+                    <p><em>*Importante: Para revalidar tu TNE debes tener tu pase escolar en buen estado, incluso si es de
                     año anteriores, siempre y cuando sea desde el año 2015 en adelante..</em></p>
-
+                </div>
+                
+                <div id="cls_nuevo">
                     <p><em>*Importante: Esta solicitud es sólo para aquellos estudiantes que hayan egresado de Enseñanza
                         Media o que nunca hayan obtenido un pase escolar en Educación Superior.</em></p>
+                </div>        
             </div>
 
            
@@ -239,23 +274,20 @@ siguientes documentos:  <ul><li>1. FOTOCOPIA DE CÉDULA DE IDENTIDAD POR AMBOS L
 <script>
     function valida_envia() {
         var opciones_radio = document.tne.INSCRIPCION;
-        var revalidar_radio = document.tne.TNE_REVALIDAR;
-        var nuevo_tne_radio = document.tne.TNE_NUEVO;
+        var revalidar_radio = document.tne.TNE_SOLICITUD;
+        
          
         valor_radio = document.getElementById("id_INSCRIPCION_0").value;
         valor_select = document.getElementById("id_INSCRIPCION_PERIODO").value;
 
         
 
-        if (revalidar_radio[0].checked == false && revalidar_radio[1].checked == false) {
-            alert("Por favor Selecionar una opción ¿Requiere revalidar su TNE para este año?");
+        if (revalidar_radio[0].checked == false && revalidar_radio[1].checked == false && revalidar_radio[2].checked == false) {
+            alert("Por favor Selecionar una opción ¿Requiere revalidar o es su primera TNE para este año?");
             return false;
           }
 
-          if (nuevo_tne_radio[0].checked == false && nuevo_tne_radio[1].checked == false) {
-            alert("Por favor Selecionar una opción ¿Requieres solicitar por primera vez la TNE para este año?");
-            return false;
-          }
+          
 
         if (opciones_radio[0].checked == true) {
             if (valor_radio == 'SI') {
