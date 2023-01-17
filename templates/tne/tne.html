@@ -3,8 +3,8 @@
 {% load static %}
 {% block title %} Formulario Datos Ulagos{% endblock title %}
 
-{%block titulo %} Top Navigation Example 3. {%endblock %}
-{%block titulo_principal %} Formulario Tne 2023 {%endblock %}
+
+{%block titulo_principal %} Formulario TNE 2023 {%endblock %}
 
 {% block content %}
 <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
@@ -31,6 +31,8 @@ $(document).ready(function() {
 
 
 </script>
+
+
 
 <div class="card card-teal">
     <div class="card-header">
@@ -104,7 +106,7 @@ $(document).ready(function() {
                 <div class="col-sm-6">
                     <div class="form-group">
                         
-                            <label>Seleccionar si desea realizar una Inscripción</label>
+                            <label>Seleccionar si desea realizar una inscripción de asignaturas</label>
                             {{form.INSCRIPCION}}
                         
                     </div>
@@ -164,27 +166,19 @@ $(document).ready(function() {
                 <div class="col-sm-12">
                     <div class="form-check">
                         <div class="form-check-input-chex">
-                            <label>¿Requiere revalidar su TNE para este año?</label>
-                            {{form.TNE_REVALIDAR}}
+                            <label>Por favor seleccionar si necesita revalidar o es su primera TNE:</label>
+                            {{form.TNE_SOLICITUD}}
                         </div>
                     </div>
                 </div>
                 <p><em>*Importante: Para revalidar tu TNE debes tener tu pase escolar en buen estado, incluso si es de
                     año anteriores, siempre y cuando sea desde el año 2015 en adelante..</em></p>
+
+                    <p><em>*Importante: Esta solicitud es sólo para aquellos estudiantes que hayan egresado de Enseñanza
+                        Media o que nunca hayan obtenido un pase escolar en Educación Superior.</em></p>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-check">
-                        <div class="form-check-input-chex">
-                            <label>¿Requieres solicitar por primera vez la TNE para este año?</label>
-                            {{form.TNE_NUEVO}}
-                        </div>
-                    </div>
-                </div>
-                <p><em>*Importante: Esta solicitud es sólo para aquellos estudiantes que hayan egresado de Enseñanza
-                    Media o que nunca hayan obtenido un pase escolar en Educación Superior.</em></p>
-            </div>
+           
 
             <div class="row">
                 <div class="col-sm-12">
@@ -215,19 +209,53 @@ siguientes documentos:  <ul><li>1. FOTOCOPIA DE CÉDULA DE IDENTIDAD POR AMBOS L
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn  btn-primary " value="Enviar Datos"/>
-                    
-                    <input  type="reset" class="btn  btn-danger" value="Cancelar">
+            <input type="button" class="btn  btn-primary "  data-toggle="modal" data-target="#exampleModalCenter" value="Enviar Datos"/>
+            <input  type="reset" class="btn  btn-danger" value="Cancelar">
         </form>
     </div>
 
 </div>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">¿Esta seguro de los datos ingresados?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        <div class="modal-body">
+        Compruebe que los datos sean los correctos. ¿Está seguro que desea guardar y enviar los datos ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="modalAdd" name="modalAdd" class="btn btn-primary">Guardar y Enviar</button>
+          <button type="button" class="btn btn-secondary "data-dismiss="modal">Anular Envio</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
     function valida_envia() {
         var opciones_radio = document.tne.INSCRIPCION;
-
+        var revalidar_radio = document.tne.TNE_REVALIDAR;
+        var nuevo_tne_radio = document.tne.TNE_NUEVO;
+         
         valor_radio = document.getElementById("id_INSCRIPCION_0").value;
         valor_select = document.getElementById("id_INSCRIPCION_PERIODO").value;
+
+        
+
+        if (revalidar_radio[0].checked == false && revalidar_radio[1].checked == false) {
+            alert("Por favor Selecionar una opción ¿Requiere revalidar su TNE para este año?");
+            return false;
+          }
+
+          if (nuevo_tne_radio[0].checked == false && nuevo_tne_radio[1].checked == false) {
+            alert("Por favor Selecionar una opción ¿Requieres solicitar por primera vez la TNE para este año?");
+            return false;
+          }
 
         if (opciones_radio[0].checked == true) {
             if (valor_radio == 'SI') {
@@ -236,15 +264,22 @@ siguientes documentos:  <ul><li>1. FOTOCOPIA DE CÉDULA DE IDENTIDAD POR AMBOS L
                     return false;
                 }
                 else {
-                    document.tne.submit();
+                    
+                    //document.tne.submit();
                 }
             } else {
                 return false;
 
             }
         } else {
-            document.tne.submit();
+            
+            //document.tne.submit();
         }
     }
+</script>
+<script>
+$('input').attr('required', true);
+$("#modalAdd").click(function() {
+$("#tne").submit();});
 </script>
 {% endblock%}
