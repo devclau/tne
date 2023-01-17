@@ -86,10 +86,10 @@ def guardar(request):
             PERIODO_SOLICITUD = form.cleaned_data['PERIODO_SOLICITUD']
             INSCRIPCION = form.cleaned_data['INSCRIPCION']
             INSCRIPCION_PERIODO = form.cleaned_data['INSCRIPCION_PERIODO']
-            TNE_REVALIDAR = form.cleaned_data['TNE_REVALIDAR']
-            TNE_NUEVO = form.cleaned_data['TNE_REVALIDAR']
+            TNE_SOLICITUD = form.cleaned_data['TNE_SOLICITUD']
+            
             with connections['DELFOS'].cursor() as cursor:
-                SQL = f"INSERT INTO DELFOS.T$TNE_SOLICITUDES (FECHA_SOLICITUD, RUT,PERIODO_SOLICITUD, INSCRIPCION, INSCRIPCION_PERIODO, TNE_REVALIDAR, TNE_NUEVO) VALUES (sysdate, '{RUT}', {PERIODO_SOLICITUD}, '{INSCRIPCION}', '{INSCRIPCION_PERIODO}', '{TNE_REVALIDAR}', '{TNE_NUEVO}')" 
+                SQL = f"INSERT INTO DELFOS.T$TNE_SOLICITUDES (FECHA_SOLICITUD, RUT,PERIODO_SOLICITUD, INSCRIPCION, INSCRIPCION_PERIODO, TNE_SOLICITUD) VALUES (sysdate, '{RUT}', {PERIODO_SOLICITUD}, '{INSCRIPCION}', '{INSCRIPCION_PERIODO}', '{TNE_SOLICITUD}')"  
                 cursor.execute(SQL)#ORIGEN
             
             return render(request, 'tne/fin_registro.html', {})
