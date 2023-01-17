@@ -13,9 +13,9 @@ class FormulatioTne(forms.Form):
     semestre_choices = [('', '----'),('1SEM', 'SEMESTRE 1'), ('2SEM', 'SEMESTRE 2'), ('AMBOS', 'AMBOS')]
     INSCRIPCION_PERIODO = forms.ChoiceField(required=False, choices=semestre_choices, widget=Select(attrs={'class':'form-control', 'name':'INSCRIPCION_PERIODO'}))
 
-    TNE_REVALIDAR = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class':'form-check-input-chex', 'name':'TNE_REVALIDAR'}))
+    CHOICES_TNE = [('REVALIDAR', 'Requiero revalidar su TNE para este año'), ('NUEVA', 'Requiero solicitar por primera vez la TNE para este año'), ('NO_REQUIERO', 'No requiero solicitar, o revalidar TNE para este año.')]
+    TNE_SOLICITUD= forms.ChoiceField(choices=CHOICES_TNE, widget=forms.RadioSelect(attrs={'class':'form-check-input-chex', 'name':'TNE_SOLICITUD'}))
 
-    TNE_NUEVO = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class':'form-check-input-chex','name':'TNE_NUEVO'}))
 
 class FormularioLogin(forms.Form):
         email = forms.CharField(required=True, widget=forms.TextInput(
